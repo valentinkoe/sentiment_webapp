@@ -39,41 +39,47 @@ def set_feats(text):
     #reset FEATS from previous computations
     FEATS = []
     
-    words = nltk.word_tokenize(text)
-    #TODO: emoticon handling: twokenize.tokenize(text)
-    #TODO: nltk tokenization methods fail to split "something like this.Too bad!" (no space after dot)
-    #even sentence split procedures don't seem to handle this correctly!
-    lemmas = lemmatize(text.lower())
-    negated = False
-    prev = None
-    prev_lem = None
-    pprev = None
-    pprev_lem = None
+    add_index = 0
+    sents = nltk.sent_tokenize(text)
     
-    #get all relevant features
-    for i in range(len(words)):
-        unigram = 'not_' + words[i].lower() if negated else words[i].lower()
-        lemma = 'not_' + lemmas[i] if negated else lemmas[i]
-        FEATS.append((words[i],unigram,lemma,i,1)) #add unigram
-        if prev:
-            bigram = prev + ' ' + unigram
-            bigram_lem = prev_lem + ' ' + lemma
-            FEATS.append((words[i-1] + ' ' + words[i],bigram,bigram_lem,i-1,2)) #add bigram
-            if pprev:
-                trigram = pprev + ' ' + bigram
-                trigram_lem = pprev_lem + ' ' + bigram_lem
-                FEATS.append((words[i-2] + ' ' + words[i-1] + ' ' + words[i],trigram,trigram_lem,i-2,3)) #add trigram
-            pprev = prev
-            pprev_lem = prev_lem
-        prev = unigram
-        prev_lem = lemma
+    for sent in sents:
+    
+        words = nltk.word_tokenize(sent)
+        #TODO: emoticon handling: twokenize.tokenize(sent)
+        #TODO: nltk tokenization methods seem to fail to split "something like this.Too bad!" (no space after dot)
+        lemmas = lemmatize(sent.lower()) #maps because of same tokenization method!
+        negated = False
+        prev = None
+        prev_lem = None
+        pprev = None
+        pprev_lem = None
         
-        #change negation flag
-        if words[i] in neg_pol_items: #do not use any() -- words containing 'no'
-            negated = not negated
+        #get all relevant features
+        for i in range(len(words)):
+            unigram = 'not_' + words[i].lower() if negated else words[i].lower()
+            lemma = 'not_' + lemmas[i] if negated else lemmas[i]
+            FEATS.append((words[i],unigram,lemma,i+add_index,1)) #add unigram
+            if prev:
+                bigram = prev + ' ' + unigram
+                bigram_lem = prev_lem + ' ' + lemma
+                FEATS.append((words[i-1] + ' ' + words[i],bigram,bigram_lem,i+add_index-1,2)) #add bigram
+                if pprev:
+                    trigram = pprev + ' ' + bigram
+                    trigram_lem = pprev_lem + ' ' + bigram_lem
+                    FEATS.append((words[i-2] + ' ' + words[i-1] + ' ' + words[i],trigram,trigram_lem,i+add_index-2,3)) #add trigram
+                pprev = prev
+                pprev_lem = prev_lem
+            prev = unigram
+            prev_lem = lemma
+            
+            #change negation flag
+            if words[i] in neg_pol_items: #do not use any() -- words containing 'no'
+                negated = not negated
 
-        if any(d in words[i] for d in delims): #reset negation flag
-            negated = False
+            if any(d in words[i] for d in delims): #reset negation flag
+                negated = False
+        
+        add_index += len(words)
 
 #lemmatize a text
 def lemmatize(text):
@@ -137,6 +143,7 @@ def classify_rule():
     check_pos = copy(pos_rule) #shallow copies of sets are fine
     check_neg = copy(neg_rule)
     #add user defined words
+    #TODO: remove neg pol items!!
     check_pos.update([w for w in settings.posWordsAdd])
     check_neg.update(['not_' + w for w in settings.posWordsAdd])
     check_neg.update([w for w in settings.negWordsAdd])
