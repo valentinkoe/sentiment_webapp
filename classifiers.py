@@ -143,7 +143,9 @@ def classify_rule():
     check_pos = copy(pos_rule) #shallow copies of sets are fine
     check_neg = copy(neg_rule)
     #add user defined words
-    #TODO: remove neg pol items!!
+    #Ignoring neg pol items!! #TODO: offer possibility to edit neg_pol_items
+    settings.posWordsAdd = settings.posWordsAdd - set(neg_pol_items)
+    settings.negWordsAdd = settings.negWordsAdd - set(neg_pol_items)
     check_pos.update([w for w in settings.posWordsAdd])
     check_neg.update(['not_' + w for w in settings.posWordsAdd])
     check_neg.update([w for w in settings.negWordsAdd])
