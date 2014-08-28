@@ -1,4 +1,7 @@
-from flask import Flask,jsonify,render_template,request
+from flask import Flask,jsonify,render_template,request,send_from_directory
+
+import os
+
 import settings, classifiers
 
 app = Flask(__name__)
