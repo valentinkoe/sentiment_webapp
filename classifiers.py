@@ -194,17 +194,17 @@ def classify_rule():
 #######################################
 
 #load classifiers
-svm_classifier_imdb = cPickle.load(open(os.path.join('resources', 'classifier_svm_imdb.pickle')))
-svm_classifier_yelp = cPickle.load(open(os.path.join('resources', 'classifier_svm_yelp.pickle')))
-svm_classifier_comb = cPickle.load(open(os.path.join('resources', 'classifier_svm_comb.pickle')))
-bayes_classifier_imdb = cPickle.load(open(os.path.join('resources', 'classifier_bayes_imdb.pickle')))
-bayes_classifier_yelp = cPickle.load(open(os.path.join('resources', 'classifier_bayes_yelp.pickle')))
-bayes_classifier_comb = cPickle.load(open(os.path.join('resources', 'classifier_bayes_comb.pickle')))
+svm_classifier_imdb = cPickle.load(open(os.path.join(settings.APP_ROOT,'resources', 'classifier_svm_imdb.pickle')))
+svm_classifier_yelp = cPickle.load(open(os.path.join(settings.APP_ROOT,'resources', 'classifier_svm_yelp.pickle')))
+svm_classifier_comb = cPickle.load(open(os.path.join(settings.APP_ROOT,'resources', 'classifier_svm_comb.pickle')))
+bayes_classifier_imdb = cPickle.load(open(os.path.join(settings.APP_ROOT,'resources', 'classifier_bayes_imdb.pickle')))
+bayes_classifier_yelp = cPickle.load(open(os.path.join(settings.APP_ROOT,'resources', 'classifier_bayes_yelp.pickle')))
+bayes_classifier_comb = cPickle.load(open(os.path.join(settings.APP_ROOT,'resources', 'classifier_bayes_comb.pickle')))
 
 #load dicts of features extracted on training data
-fcount_imdb = cPickle.load(open(os.path.join('resources','fcount_imdb.pickle')))
-fcount_yelp = cPickle.load(open(os.path.join('resources','fcount_yelp.pickle')))
-fcount_comb = cPickle.load(open(os.path.join('resources','fcount_comb.pickle')))
+fcount_imdb = cPickle.load(open(os.path.join(settings.APP_ROOT,'resources','fcount_imdb.pickle')))
+fcount_yelp = cPickle.load(open(os.path.join(settings.APP_ROOT,'resources','fcount_yelp.pickle')))
+fcount_comb = cPickle.load(open(os.path.join(settings.APP_ROOT,'resources','fcount_comb.pickle')))
 
 #check f[1] for for feat in FEATS
 
