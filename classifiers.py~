@@ -211,7 +211,7 @@ fcount_comb = cPickle.load(open(os.path.join('resources','fcount_comb.pickle')))
 def classify_ml():
     
     #get classifiers and feature count of selected training data set
-    bayes_classifier = None
+    bayes_classifer = None
     svm_classifier = None
     feat_count_pos = None
     feat_count_neg = None
