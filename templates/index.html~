@@ -1,0 +1,129 @@
+<!doctype html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sentiment Web App</title>
+    <!-- jQuery -->
+    <script type="text/javascript" src="/static/jquery-1.11.1.min.js"></script>
+
+    <!-- color picker -->
+    <script type="text/javascript" src="/static/mcColorPicker/mcColorPicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/mcColorPicker/mcColorPicker.css"></link>
+
+    <!-- my stuff -->
+    <script type="text/javascript" src="/static/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/style.css"></link>
+
+    <noscript>Please activate JavaScript!</noscript>
+</head>
+<body>
+    <h1>Welcome to my Sentiment Web App</h1>
+    
+    <div id="footer">
+        This tool is part of the work for my Bachelor's Thesis which is found <a href="static/paper/BA_ValentinDeyringer.pdf">here</a>.
+        <br>
+        The source code can be downloaded <a href="https://github.com/valentindey/sentiment_webapp">here</a>;
+    </div>
+    
+    <!-- Input -->
+    <div class="panel" id="panel1">
+        <div class="inputPanel" id="inputText">
+
+            Input
+
+            <form>
+                <textarea id="textarea" rows="8" cols="80">This is a nice example text.</textarea>
+                <br>
+                <input type="button" value="analyse" onclick="getSentiment()"/>
+            </form>
+
+        </div>
+    </div>
+    
+    
+    <!-- Settings -->
+    <div class="panel" id="panel2">
+
+    <br>
+        <div class="inputPanel" id="colorSettings">
+
+            Color Settings<br><br>
+            <table border="0">
+                <tr>
+                    <td>Positive:</td>
+                    <td><input id="colorPositive" type="text" class="color" size="6" value="#00FF00"/></td>
+                </tr>
+                <tr>
+                    <td>Negative:</td>
+                    <td><input id="colorNegative" type="text" class="color" size="6" value="#FF0000"/></td>
+                </tr>
+                <tr>
+                    <td>Mixed:</td>
+                    <td><input id="colorMixed" type="text" class="color" size="6" value="#000000"/></td>
+                </tr>
+                <tr>
+                    <td>Negation:</td>
+                    <td><input id="colorNegation" type="text" class="color" size="6" value="#000000"/></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="inputPanel" id="dataSettings">
+
+            Select Training Data
+            <br>
+            (selecting both uses a combined data set)
+            <br>
+            <br>
+            <input type="checkbox" value="imdb" id="chkbxImdb">movie reviews (<a href="http://ai.stanford.edu/~amaas/data/sentiment/index.html">link</a>)<br>
+            <input type="checkbox" value="yelp" id="chkbxYelp">restaurant reviews (<a href="https://www.yelp.com/academic_dataset">link</a>)<br>
+
+        </div>
+        
+        <div class="inputPanel" id="additionalWords">
+            
+            Additional Words
+            <br>
+            (enter words separated by commas)
+            <br>
+            <br>
+            Positive: <input id="posWords" type="text"></input>
+            <br>
+            Negative: <input id="negWords" type="text"></input>
+        </div>
+
+    </div>
+    <!-- Output -->
+    <div class="panel" id="panel3">
+    <br>
+    Results <span id="overallResult"></span>
+    <br>
+    <br>
+
+        <div class="outputPanel" id="bayesOutput">
+            Naive Bayes Classifier
+            <p class="outputtext" id="bayesText">
+                - empty -
+            </p>
+        </div>
+
+        <div class="outputPanel" id="svmOutput">
+            Support Vector Machine
+            <p class="outputtext" id="svmText">
+                - empty -
+            </p>
+        </div>
+
+        <div class="outputPanel" id="rulesOutput">
+            Rule Based Classification
+            <p class="outputtext" id="rulesText">
+                - empty -
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
