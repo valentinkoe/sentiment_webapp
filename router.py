@@ -31,8 +31,8 @@ def get_sentiment():
     settings.trainingData = request.form.get('trainingData')
     
     #additional words for rules
-    settings.posWordsAdd = set([s.strip() for s in request.form.get('posWords').split(',')])
-    settings.negWordsAdd = set([s.strip() for s in request.form.get('negWords').split(',')])
+    settings.posWordsAdd = set([s.strip().lower() for s in request.form.get('posWords').split(',')])
+    settings.negWordsAdd = set([s.strip().lower() for s in request.form.get('negWords').split(',')])
     
     #set features for classifiers
     classifiers.set_feats(text)

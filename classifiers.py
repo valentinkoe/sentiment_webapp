@@ -32,6 +32,7 @@ def set_feats(text):
     global FEATS, prev_text
     
     #don't do computation, if user enters same text twice; saves at least some time for this rare case
+    #TODO: memoize would maybe be nice
     if prev_text == text:
         return
     prev_text = text
