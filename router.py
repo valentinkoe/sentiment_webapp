@@ -1,20 +1,25 @@
+#basic python imports
 from flask import Flask,jsonify,render_template,request,send_from_directory
-
 import os
 
+#app imports
 import settings, classifiers
 
+#set up app
 app = Flask(__name__)
 
+#index
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
 
+#make Thesis downloadable
 @app.route('/<path:filename>')
 def send_foo(filename):
     return send_from_directory(os.path.join(settings.APP_STATIC,'paper'), 'BA_ValentinDeyringer.pdf')
 
+#main function
 @app.route('/_get_sentiment', methods=['POST'])
 def get_sentiment():
     
